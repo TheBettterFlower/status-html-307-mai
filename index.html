@@ -1,160 +1,94 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Status Panel</title>
 
-<title>Status Control</title>
+        <style>
+            body {{
+                background:#0f1117;
+                color:white;
+                font-family:Arial;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                height:100vh;
+            }}
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+            .box {{
+                background:#181c25;
+                padding:30px;
+                border-radius:20px;
+                width:380px;
+                text-align:center;
+            }}
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#0f1117;
-    font-family:Arial,sans-serif;
-    color:white;
-}
+            .status {{
+                font-size:50px;
+                font-weight:bold;
+                margin:20px;
+                color:{color};
+            }}
 
-.container{
-    width:420px;
-    padding:40px;
-    border-radius:30px;
-    background:#181c25;
-    box-shadow:
-        0 0 40px rgba(0,0,0,0.5),
-        inset 0 0 1px rgba(255,255,255,0.1);
-    text-align:center;
-}
+            button {{
+                width:110px;
+                padding:10px;
+                margin:5px;
+                border:none;
+                cursor:pointer;
+                color:white;
+                border-radius:10px;
+                font-size:16px;
+            }}
 
-.title{
-    font-size:18px;
-    opacity:.7;
-    margin-bottom:20px;
-    letter-spacing:2px;
-}
+            .on {{ background:#00c853; }}
+            .off {{ background:#d50000; }}
 
-.status-box{
-    width:100%;
-    padding:35px;
-    border-radius:25px;
-    font-size:60px;
-    font-weight:bold;
-    margin-bottom:30px;
-    transition:.3s;
-}
+            .log {{
+                margin-top:20px;
+                font-size:14px;
+                text-align:left;
+                max-height:200px;
+                overflow:auto;
+                background:#111;
+                padding:10px;
+                border-radius:10px;
+            }}
 
-.on{
-    background:#00c853;
-    box-shadow:0 0 30px rgba(0,200,83,.5);
-}
+            .info {{
+                font-size:13px;
+                opacity:0.7;
+                margin-top:10px;
+            }}
+        </style>
+    </head>
 
-.off{
-    background:#d50000;
-    box-shadow:0 0 30px rgba(213,0,0,.5);
-}
+    <body>
 
-.buttons{
-    display:flex;
-    gap:15px;
-    margin-bottom:25px;
-}
+        <div class="box">
 
-button{
-    flex:1;
-    border:none;
-    padding:16px;
-    border-radius:15px;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    color:white;
-    transition:.2s;
-}
+            <h2>STATUS PANEL</h2>
 
-button:hover{
-    transform:scale(1.03);
-}
+            <div class="status">{current}</div>
 
-.on-btn{
-    background:#00c853;
-}
+            <a href="/?status=on">
+                <button class="on">ON</button>
+            </a>
 
-.off-btn{
-    background:#d50000;
-}
+            <a href="/?status=off">
+                <button class="off">OFF</button>
+            </a>
 
-.info{
-    font-size:14px;
-    opacity:.7;
-    line-height:1.8;
-}
+            <div class="info">
+                Управление через кнопки или URL:<br>
+                <b>/?status=on</b> / <b>/?status=off</b>
+            </div>
 
-.code{
-    color:#4fc3f7;
-    font-family:monospace;
-}
-</style>
+            <div class="log">
+                {history_html}
+            </div>
 
-</head>
-<body>
+        </div>
 
-<div class="container">
-
-    <div class="title">
-        STATUS CONTROL PANEL
-    </div>
-
-    <div class="status-box
-        {% if status == 'ON' %}
-            on
-        {% elif status == 'OFF' %}
-            off
-        {% endif %}
-    ">
-        {{ status }}
-    </div>
-
-    <div class="buttons">
-
-        <button
-            class="on-btn"
-            onclick="window.location.href='/?status=on'">
-            TURN ON
-        </button>
-
-        <button
-            class="off-btn"
-            onclick="window.location.href='/?status=off'">
-            TURN OFF
-        </button>
-
-    </div>
-
-    <div class="info">
-        Управление через URL:
-        <br><br>
-
-        <span class="code">
-            http://localhost:5000/?status=on
-        </span>
-
-        <br><br>
-
-        <span class="code">
-            http://localhost:5000/?status=off
-        </span>
-    </div>
-
-</div>
-
-</body>
-</html>
-
+    </body>
+    </html>
