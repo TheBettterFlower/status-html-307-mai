@@ -102,5 +102,5 @@ Ctrl + C
 ```text
 main.py              - Flask сервер
 status.txt           - хранение текущего статуса
-templates/index.html - веб-интерфейс
+index.html           - веб-интерфейс
 ```
