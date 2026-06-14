@@ -1,189 +1,160 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>Status Control</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
- <style>
-   *{
-     margin:0;
-     padding:0;
-     box-sizing:border-box;
-   }
+<title>Status Control</title>
 
-   body{
-     height:100vh;
-     display:flex;
-     justify-content:center;
-     align-items:center;
-     background:#0f1117;
-     font-family:Arial, sans-serif;
-     color:white;
-     overflow:hidden;
-   }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-   .container{
-     width:420px;
-     padding:40px;
-     border-radius:30px;
-     background:#181c25;
-     box-shadow:
-       0 0 40px rgba(0,0,0,0.5),
-       inset 0 0 1px rgba(255,255,255,0.1);
-     text-align:center;
-   }
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f1117;
+    font-family:Arial,sans-serif;
+    color:white;
+}
 
-   .title{
-     font-size:18px;
-     opacity:0.7;
-     margin-bottom:20px;
-     letter-spacing:2px;
-   }
+.container{
+    width:420px;
+    padding:40px;
+    border-radius:30px;
+    background:#181c25;
+    box-shadow:
+        0 0 40px rgba(0,0,0,0.5),
+        inset 0 0 1px rgba(255,255,255,0.1);
+    text-align:center;
+}
 
-   .status-box{
-     width:100%;
-     padding:35px;
-     border-radius:25px;
-     font-size:60px;
-     font-weight:bold;
-     transition:0.3s;
-     margin-bottom:30px;
-     box-shadow:0 0 30px rgba(0,0,0,0.3);
-   }
+.title{
+    font-size:18px;
+    opacity:.7;
+    margin-bottom:20px;
+    letter-spacing:2px;
+}
 
-   .on{
-     background:#00c853;
-     box-shadow:0 0 30px rgba(0,200,83,0.5);
-   }
+.status-box{
+    width:100%;
+    padding:35px;
+    border-radius:25px;
+    font-size:60px;
+    font-weight:bold;
+    margin-bottom:30px;
+    transition:.3s;
+}
 
-   .off{
-     background:#d50000;
-     box-shadow:0 0 30px rgba(213,0,0,0.5);
-   }
+.on{
+    background:#00c853;
+    box-shadow:0 0 30px rgba(0,200,83,.5);
+}
 
-   .unknown{
-     background:#555;
-   }
+.off{
+    background:#d50000;
+    box-shadow:0 0 30px rgba(213,0,0,.5);
+}
 
-   .buttons{
-     display:flex;
-     gap:15px;
-     margin-bottom:25px;
-   }
+.buttons{
+    display:flex;
+    gap:15px;
+    margin-bottom:25px;
+}
 
-   button{
-     flex:1;
-     border:none;
-     padding:16px;
-     border-radius:15px;
-     font-size:18px;
-     font-weight:bold;
-     cursor:pointer;
-     transition:0.2s;
-     color:white;
-   }
+button{
+    flex:1;
+    border:none;
+    padding:16px;
+    border-radius:15px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    color:white;
+    transition:.2s;
+}
 
-   .on-btn{
-     background:#00c853;
-   }
+button:hover{
+    transform:scale(1.03);
+}
 
-   .off-btn{
-     background:#d50000;
-   }
+.on-btn{
+    background:#00c853;
+}
 
-   button:hover{
-     transform:scale(1.03);
-     opacity:0.9;
-   }
+.off-btn{
+    background:#d50000;
+}
 
-   .info{
-     font-size:14px;
-     opacity:0.7;
-     line-height:1.7;
-     margin-top:10px;
-   }
+.info{
+    font-size:14px;
+    opacity:.7;
+    line-height:1.8;
+}
 
-   .code{
-     color:#4fc3f7;
-     font-family:monospace;
-   }
- </style>
+.code{
+    color:#4fc3f7;
+    font-family:monospace;
+}
+</style>
+
 </head>
 <body>
 
 <div class="container">
 
- <div class="title">
-   STATUS CONTROL PANEL
- </div>
+    <div class="title">
+        STATUS CONTROL PANEL
+    </div>
 
- <div id="statusBox" class="status-box unknown">
-   UNKNOWN
- </div>
+    <div class="status-box
+        {% if status == 'ON' %}
+            on
+        {% elif status == 'OFF' %}
+            off
+        {% endif %}
+    ">
+        {{ status }}
+    </div>
 
- <div class="buttons">
-   <button class="on-btn" onclick="setStatus('on')">
-     TURN ON
-   </button>
+    <div class="buttons">
 
-   <button class="off-btn" onclick="setStatus('off')">
-     TURN OFF
-   </button>
- </div>
+        <button
+            class="on-btn"
+            onclick="window.location.href='/?status=on'">
+            TURN ON
+        </button>
 
- <div class="info">
-   Также можно менять статус через URL:
-   <br><br>
+        <button
+            class="off-btn"
+            onclick="window.location.href='/?status=off'">
+            TURN OFF
+        </button>
 
-   <span class="code">?status=on</span>
-   <br>
+    </div>
 
-   <span class="code">?status=off</span>
- </div>
+    <div class="info">
+        Управление через URL:
+        <br><br>
+
+        <span class="code">
+            http://localhost:5000/?status=on
+        </span>
+
+        <br><br>
+
+        <span class="code">
+            http://localhost:5000/?status=off
+        </span>
+    </div>
 
 </div>
 
-<script>
-
- const box = document.getElementById("statusBox");
-
- function updateStatus(status){
-
-   if(status === "on"){
-     box.innerText = "ON";
-     box.className = "status-box on";
-   }
-
-   else if(status === "off"){
-     box.innerText = "OFF";
-     box.className = "status-box off";
-   }
-
-   else{
-     box.innerText = "STATUS";
-     box.className = "status-box STATUS";
-   }
- }
-
- function setStatus(status){
-
-   const url = new URL(window.location);
-
-   url.searchParams.set("status", status);
-
-   window.history.replaceState({}, "", url);
-
-   updateStatus(status);
- }
-
- const params = new URLSearchParams(window.location.search);
-
- const status = params.get("status");
-
- updateStatus(status);
-
-</script>
-
 </body>
 </html>
+
